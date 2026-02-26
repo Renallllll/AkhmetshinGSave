@@ -5,17 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AkhmetshinGSave"
         mc:Ignorable="d"
-        Title="GlazkiSave" Height="450" Width="800" FontFamily="Century Gothic" Icon="/Images/Глазки-save.ico">
+        Title="Глазки-Save" MinHeight="450" MinWidth="825" Height="450" Width="800" FontFamily="Century Gothic" Icon="/Images/Глазки-save.ico">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Image Source="/Images/Глазки-save.ico" HorizontalAlignment="Left"></Image>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Глазки-Save" FontSize="30" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-        <Frame Grid.Row="1" Name="MainFrame" ContentRendered="MainFrame_ContentRendered" NavigationUIVisibility="Hidden"></Frame>
-        <Button Content="Назад" Name="BtnBack" HorizontalAlignment="Right" Click="BtnBack_Click"></Button>
+        <Image Source="/Images/Глазки-save.ico"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Bottom"/>
+
+        <TextBlock Text="Глазки-Save"
+                   FontSize="30"
+                   FontFamily="Century Gothic"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.ColumnSpan="3"></TextBlock>
+        <Frame Grid.Row="1"
+               Grid.ColumnSpan="3"
+               Name="MainFrame"
+               ContentRendered="MainFrame_ContentRendered"
+               NavigationUIVisibility="Hidden"></Frame>
+        <Button Content="Назад"
+                Name="BtnBack"
+                HorizontalAlignment="Right"
+                Click="BtnBack_Click"
+                Grid.ColumnSpan="3"/>
     </Grid>
 </Window>
