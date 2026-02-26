@@ -86,7 +86,7 @@ namespace AkhmetshinGSave
             }
             if (totalPages == 0)
             {
-                totalPages = 1;                        // хотя бы одна страница
+                totalPages = 1;                        // хотя бы одна страниц
             }
 
             // проверяем currentPage, чтобы не выйти за пределы
