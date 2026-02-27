@@ -33,16 +33,26 @@ namespace AkhmetshinGSave
         }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Logo { get; set; }
-        public string AgentLogo { 
+        public string AgentLogo
+        {
             get
             {
                 if (Logo == null)
-                    return "agents/picture.png";
-                else 
-                    return Logo;
+                    return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "agents", "picture.png");
+                else
+                    return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Logo);
             }
         }
+        public string Logo { get; set; }
+        //public string AgentLogo { 
+        //    get
+        //    {
+        //        if (Logo == null)
+        //            return "agents/picture.png";
+        //        else
+        //            return Logo;
+        //    }
+        //}
         public string Address { get; set; }
         public int Priority { get; set; }
         public string DirectorName { get; set; }

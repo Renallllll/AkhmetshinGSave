@@ -52,6 +52,11 @@
                 <ComboBoxItem Content="ООО"/>
                 <ComboBoxItem Content="ПАО"/>
             </ComboBox>
+            <!--ДОБАВЛЕНИЕ НОВОГО АГЕНТА-->
+            <Button Name="BtnAdd"
+                    Content="Добавить агента"
+                    Click="BtnAdd_Click"
+                    Margin="5"/>
         </WrapPanel>
         <!--ПОСТРАНИЧНЫЙ ВЫВОД-->
         <StackPanel Grid.ColumnSpan="3"
@@ -81,7 +86,9 @@
         <ListView Name="AgentListView"
                   Grid.Row="1"
                   Grid.ColumnSpan="3"
-                  Width="auto">
+                  Width="auto"
+                  MouseRightButtonUp="AgentListView_MouseRightButtonUp">>
+            
             <ListView.ItemTemplate>
                 <DataTemplate>
 

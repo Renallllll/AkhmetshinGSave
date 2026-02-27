@@ -6,9 +6,199 @@
       xmlns:local="clr-namespace:AkhmetshinGSave"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AddEditPage">
+      Title="AddEditPage" FontFamily="Century Gothic">
 
     <Grid>
-        <TextBlock Text="Hello!" FontFamily="Century Gothic" FontSize="30"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--<Image Source="/Images/Глазки-save.ico"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Bottom"/>-->
+        
+        <TextBlock Text="Список агентов"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="25"/>
+        
+        <WrapPanel Grid.Row="1"
+                   Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Наименование"
+                       FontSize="15"
+                       Margin="5"/>
+            <TextBox Name="TBoxName"
+                     Text="{Binding Title}"
+                     TextChanged="TBoxName_TextChanged"
+                     Width="200"
+                     Margin="5"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="1"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Тип агента"
+                       FontSize="15"
+                       Margin="5"/>
+            <ComboBox Name="ComboType"
+                      SelectionChanged="ComboType_SelectionChanged"
+                      Width="70"
+                      Margin="5">
+                <ComboBoxItem Content="ЗАО"/>
+                <ComboBoxItem Content="МКК"/>
+                <ComboBoxItem Content="МФО"/>
+                <ComboBoxItem Content="ОАО"/>
+                <ComboBoxItem Content="ООО"/>
+                <ComboBoxItem Content="ПАО"/>
+            </ComboBox>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="2"
+                   Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Адрес"
+                       FontSize="15"
+                       Margin="5"/>
+            <TextBox Name="TBoxAddress"
+                     TextChanged="TBoxAddress_TextChanged"
+                     Text="{Binding Address}"
+                     Margin="5"
+                     Width="265"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="2"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Приоритет"
+                       FontSize="15"
+                       Margin="5"/>
+            <TextBox Name="TBoxPriority"
+                     Text="{Binding Priority}"
+                     Width="100"
+                     Margin="5"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="3"
+                   Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Директор"
+                       FontSize="15"
+                       Margin="5"/>
+            <TextBox Name="TBoxDirectorName"
+                     Text="{Binding DirectorName}"
+                     Margin="5"
+                     Width="240"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="3"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="ИНН"
+                       FontSize="15"
+                       Margin="5"/>
+            <TextBox Name="TBoxINN"
+                     Text="{Binding INN}"
+                     Width="200"
+                     Margin="5"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="4"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="КПП"
+                       FontSize="15"
+                       Margin="5"/>
+            <TextBox Name="TBoxKPP"
+                     Text="{Binding KPP}"
+                     Margin="5"
+                     Width="200"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="5"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Телефон"
+                       FontSize="15"
+                       Margin="5"/>
+            <TextBox Name="TBoxPhone"
+                     Text="{Binding Phone}"
+                     Margin="5"
+                     Width="160"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="6"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Email"
+                       FontSize="15"
+                       Margin="5"/>
+            <TextBox Name="TBoxEmail"
+                     Text="{Binding Email}"
+                     Margin="5"
+                     Width="190"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="4"
+                   Grid.RowSpan="3"
+                   Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Логотип"
+                       FontSize="15"
+                       Margin="5"/>
+            <Image Grid.Column="0"
+                   Grid.RowSpan="4"
+                   Stretch="Uniform"
+                   Margin="10"
+                   Height="100"
+                   Width="100"
+                   Source="{Binding AgentLogo}"
+                   Name="LogoImage">
+            </Image>
+        </WrapPanel>
+
+        <Button Content="Изменить"
+                Name="BtnEdit"
+                Click="BtnEdit_Click"
+                Grid.Column="0"
+                Grid.Row="8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+        <Button Content="Сохранить"
+                Name="BtnSave"
+                Click="BtnSave_Click"
+                Grid.Column="1"
+                Grid.Row="8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+        <Button Grid.Column="1"
+                Grid.Row="8"
+                HorizontalAlignment="Right"
+                Width="90"
+                Content="Удалить"
+                Name="BtnDelete"
+                Click="BtnDelete_Click"/>
     </Grid>
 </Page>

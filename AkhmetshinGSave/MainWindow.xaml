@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AkhmetshinGSave"
         mc:Ignorable="d"
-        Title="Глазки-Save" MinHeight="450" MinWidth="825" Height="450" Width="800" FontFamily="Century Gothic" Icon="/Images/Глазки-save.ico">
+        Title="Глазки-Save" MinHeight="500" MinWidth="825" Height="450" Width="800" FontFamily="Century Gothic" Icon="/Images/Глазки-save.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>

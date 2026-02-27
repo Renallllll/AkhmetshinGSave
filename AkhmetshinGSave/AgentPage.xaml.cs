@@ -31,9 +31,14 @@ namespace AkhmetshinGSave
             ComboSort.SelectedIndex = 0;
             ComboFilt.SelectedIndex = 0;
 
+            this.Loaded += AgentPage_Loaded;
+
             UpdateAgent();
         }
-        
+        private void AgentPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateAgent();
+        }
         public void UpdateAgent()
         {
             var currentAgent = AkhmetshinGSaveEntities.GetContext().Agent.ToList();
@@ -108,7 +113,12 @@ namespace AkhmetshinGSave
                 .Take(PageSize)
                 .ToList();
 
-            AgentListView.ItemsSource = pageData;
+            //AgentListView.ItemsSource = pageData;
+            AgentListView.Items.Clear();
+            foreach (var agent in pageData)
+            {
+                AgentListView.Items.Add(agent);
+            }
 
             // номера страниц
             PageListBox.Items.Clear();
@@ -182,6 +192,27 @@ namespace AkhmetshinGSave
                 currentPage = PageListBox.SelectedIndex;
                 UpdateAgent();
             }
+        }
+        private void AgentListView_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Agent selectedAgent = AgentListView.SelectedItem as Agent;
+            if (selectedAgent != null)
+            {
+                ContextMenu menu = new ContextMenu();
+                MenuItem item = new MenuItem();
+                item.Header = "Редактировать";
+                item.Click += (s, args) =>
+                {
+                    Manager.MainFrame.Navigate(new AddEditPage(selectedAgent));
+                };
+                menu.Items.Add(item);
+                menu.IsOpen = true;
+            }
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage());
         }
     }
 }
