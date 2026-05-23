@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:AkhmetshinGSave"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AddEditPage" FontFamily="Century Gothic">
+      Title="AddEditPage" FontFamily="Century Gothic" MinHeight="500" MinWidth="825">
 
-    <Grid>
+    <Grid HorizontalAlignment="Left" Width="825">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -17,8 +17,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -179,26 +182,80 @@
             </Image>
         </WrapPanel>
 
+        <TextBlock Text="История продаж"
+                   Grid.Row="7"
+                   Grid.ColumnSpan="2"
+                   FontSize="14"
+                   Margin="5"
+                   FontWeight="Bold"/>
+
+        <DataGrid Name="SalesDataGrid"
+                  Grid.Row="8"
+                  Grid.ColumnSpan="2"
+                  Margin="5"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Продукция" Binding="{Binding Product.Title}" Width="200" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding ProductCount}" Width="80"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding SaleDate, StringFormat=dd.MM.yyyy}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <StackPanel Grid.Row="9"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    Margin="5">
+            <TextBlock Text="Тип продукта"
+                       VerticalAlignment="Center"/>
+            <ComboBox Name="ProductCombo"
+                      Width="200"
+                      Margin="5"
+                      DisplayMemberPath="Title"/>
+            <TextBlock Text="Количество продаж"
+                       VerticalAlignment="Center"/>
+            <TextBox Name="CountTextBox"
+                     Width="70"
+                     Margin="5"
+                     Padding="5"/>
+            <Button Content="Добавить"
+                    Name="BtnAddSale"
+                    Width="80"
+                    Margin="5"
+                    Click="BtnAddSale_Click"/>
+            <Button Content="Удалить"
+                    Name="BtnDeleteSale"
+                    Width="80"
+                    Margin="5"
+                    Click="BtnDeleteSale_Click"/>
+        </StackPanel>
+
+        <WrapPanel Grid.Row="7"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center">
+            <Button Content="Сохранить"
+        Name="BtnSave"
+        Click="BtnSave_Click"
+        Grid.Column="1"
+        Grid.Row="7"
+        Margin="5"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Center"/>
+            <Button Grid.Column="1"
+        Grid.Row="7"
+        Margin="5"
+        Width="90"
+        Content="Удалить"
+        Name="BtnDelete"
+        Click="BtnDelete_Click" RenderTransformOrigin="0.157,0.532"/>
+        </WrapPanel>
         <Button Content="Изменить"
                 Name="BtnEdit"
                 Click="BtnEdit_Click"
                 Grid.Column="0"
-                Grid.Row="8"
+                Grid.Row="6"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"/>
-        <Button Content="Сохранить"
-                Name="BtnSave"
-                Click="BtnSave_Click"
-                Grid.Column="1"
-                Grid.Row="8"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
-        <Button Grid.Column="1"
-                Grid.Row="8"
-                HorizontalAlignment="Right"
-                Width="90"
-                Content="Удалить"
-                Name="BtnDelete"
-                Click="BtnDelete_Click"/>
+        
     </Grid>
 </Page>

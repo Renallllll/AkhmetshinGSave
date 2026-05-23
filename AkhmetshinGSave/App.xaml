@@ -9,7 +9,7 @@
             <Setter Property="Width" Value="175"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Background" Value="#B175EE"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="15"/>
         </Style>
     </Application.Resources>
 </Application>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace AkhmetshinGSave
             ComboType.SelectedIndex = _currentAgent.AgentTypeID - 1;
 
             BtnDelete.Visibility = Visibility.Visible;
+
+            ProductCombo.ItemsSource = AkhmetshinGSaveEntities.GetContext().Product.ToList();
+            LoadSales();
         }
         public AddEditPage()
         {
@@ -37,6 +41,9 @@ namespace AkhmetshinGSave
             _currentAgent = new Agent();
             DataContext = _currentAgent;
             BtnDelete.Visibility = Visibility.Collapsed;
+
+            ProductCombo.ItemsSource = AkhmetshinGSaveEntities.GetContext().Product.ToList();
+            LoadSales();
         }
 
         private void TBoxName_TextChanged(object sender, TextChangedEventArgs e)
@@ -170,6 +177,103 @@ namespace AkhmetshinGSave
                     }
                 }
             }
+        }
+
+        private void LoadSales()
+        {
+            try
+            {
+                if (_currentAgent == null || _currentAgent.ID == 0)
+                {
+                    SalesDataGrid.ItemsSource = new List<ProductSale>();
+                    return;
+                }
+
+                var context = AkhmetshinGSaveEntities.GetContext();
+                var sales = context.ProductSale
+                    .Where(s => s.AgentID == _currentAgent.ID)
+                    .Include("Product")  // Важно! Загружаем связанный Product
+                    .ToList();
+
+                SalesDataGrid.ItemsSource = sales;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка загрузки продаж: " + ex.Message);
+            }
+        }
+
+        //private void LoadSales()
+        //{
+        //    if (_currentAgent.ID == 0)
+        //    {
+        //        SalesDataGrid.ItemsSource = null;
+        //        return;
+        //    }
+        //    var context = AkhmetshinGSaveEntities.GetContext();
+        //    SalesDataGrid.ItemsSource = context.ProductSale.Where(s => s.AgentID == _currentAgent.ID).ToList();
+        //}
+
+        private void BtnAddSale_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentAgent.ID == 0)
+            {
+                MessageBox.Show("Сохраните агента сначала");
+                return;
+            }
+            if (ProductCombo.SelectedItem == null || string.IsNullOrWhiteSpace(CountTextBox.Text))
+            {
+                MessageBox.Show("Выберите продукт и укажите количество");
+                return;
+            }
+            if (!int.TryParse(CountTextBox.Text, out int count) || count <= 0)
+            {
+                MessageBox.Show("Количество должно быть числом > 0");
+                return;
+            }
+
+            var product = ProductCombo.SelectedItem as Product;
+            var newSale = new ProductSale
+            {
+                AgentID = _currentAgent.ID,
+                ProductID = product.ID,
+                ProductCount = count,
+                SaleDate = DateTime.Today
+            };
+
+            var context = AkhmetshinGSaveEntities.GetContext();
+            context.ProductSale.Add(newSale);
+            context.SaveChanges();
+
+            CountTextBox.Clear();
+            LoadSales();
+            // Загрузить список продуктов в ComboBox
+            ProductCombo.ItemsSource = AkhmetshinGSaveEntities.GetContext().Product.ToList();
+            LoadSales();
+
+        }
+
+        private void BtnDeleteSale_Click(object sender, RoutedEventArgs e)
+        {
+            if (SalesDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Выберите продажу");
+                return;
+            }
+
+            var sale = SalesDataGrid.SelectedItem as ProductSale;
+            var context = AkhmetshinGSaveEntities.GetContext();
+            var saleToDelete = context.ProductSale.FirstOrDefault(s => s.ID == sale.ID);
+            if (saleToDelete != null)
+            {
+                context.ProductSale.Remove(saleToDelete);
+                context.SaveChanges();
+                LoadSales();
+            }
+            // Загрузить список продуктов в ComboBox
+            ProductCombo.ItemsSource = AkhmetshinGSaveEntities.GetContext().Product.ToList();
+            LoadSales();
+
         }
     }
 }

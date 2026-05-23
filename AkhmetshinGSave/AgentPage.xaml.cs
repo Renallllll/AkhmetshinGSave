@@ -214,5 +214,64 @@ namespace AkhmetshinGSave
         {
             Manager.MainFrame.Navigate(new AddEditPage());
         }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Просто закрываем оверлей
+            PriorityOverlay.Visibility = Visibility.Collapsed;
+        }
+
+        private void ApplyPriorityButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!int.TryParse(PriorityTextBox.Text, out int newPriority))
+            {
+                MessageBox.Show("Введите корректное число");
+                return;
+            }
+
+            if (newPriority < 0)
+            {
+                MessageBox.Show("Приоритет не может быть отрицательным");
+                return;
+            }
+
+            var selectedAgents = AgentListView.SelectedItems.Cast<Agent>().ToList();
+
+            var context = AkhmetshinGSaveEntities.GetContext();
+            foreach (var agent in selectedAgents)
+            {
+                var dbAgent = context.Agent.FirstOrDefault(a => a.ID == agent.ID);
+                if (dbAgent != null)
+                {
+                    dbAgent.Priority = newPriority;
+                }
+            }
+
+            context.SaveChanges();
+            PriorityOverlay.Visibility = Visibility.Collapsed;
+            UpdateAgent();
+
+            MessageBox.Show("Приоритет успешно изменён");
+        }
+
+        private void ChangePriorityBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Проверяем, выбраны ли агенты
+            var selectedAgents = AgentListView.SelectedItems.Cast<Agent>().ToList();
+            if (selectedAgents.Count == 0)
+            {
+                MessageBox.Show("Выберите хотя бы одного агента");
+                return;
+            }
+
+            // Находим максимальный приоритет
+            int maxPriority = selectedAgents.Max(a => a.Priority);
+
+            // Подставляем это значение в поле ввода
+            PriorityTextBox.Text = maxPriority.ToString();
+
+            // Показываем оверлей
+            PriorityOverlay.Visibility = Visibility.Visible;
+        }
     }
 }
